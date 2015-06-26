@@ -1,0 +1,11 @@
+---
+- include_vars: locations.yml
+
+
+- replace: dest=/etc/httpd/conf/httpd.conf regexp='^DocumentRoot .*' replace='DocumentRoot "'{{www_root}}'"'
+  ignore_errors: yes
+
+- file: path={{www_root}} state=directory
+  ignore_errors: yes
+
+- template: src=apache/index.php.j2 dest={{www_root}}/index.php
